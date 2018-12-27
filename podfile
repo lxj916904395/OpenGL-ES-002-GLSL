@@ -1,0 +1,7 @@
+platform:ios, 8.0
+
+target "OpenGL-ES-002-GLSL" do
+
+pod 'YYKit'
+
+end
