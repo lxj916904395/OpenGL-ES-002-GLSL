@@ -43,8 +43,8 @@
 #pragma mark *****************6、绘制
 - (void)setupShader{
     
-    glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
 
     //窗口大小
     CGFloat scale = [[UIScreen mainScreen] scale];
@@ -73,14 +73,22 @@
     //使用program
     glUseProgram(self.program);
     
+    CGFloat size = 1.0f;
     //顶点纹理坐标
     GLfloat vertexts[] = {
-        0.5f, -0.5f, 0,     1.0f, 0.0f,
-        -0.5f, 0.5f, 0,     0.0f, 1.0f,
-        -0.5f, -0.5f, 0,    0.0f, 0.0f,
-        0.5f, 0.5f, 0,      1.0f, 1.0f,
-        -0.5f, 0.5f, 0,     0.0f, 1.0f,
-        0.5f, -0.5f, 0,     1.0f, 0.0f,
+//        size, -size, 0,     1.0f, 0.0f,
+//        -size, size, 0,     0.0f, 1.0f,
+//        -size, -size, 0,    0.0f, 0.0f,
+//        size, size, 0,      1.0f, 1.0f,
+//        -size, size, 0,     0.0f, 1.0f,
+//        size, -size, 0,     1.0f, 0.0f,
+        
+        size, -size, 0.0f,        1.0f, 1.0f, //右下
+        -size, size, 0.0f,        0.0f, 0.0f, // 左上
+        -size, -size, 0.0f,       0.0f, 1.0f, // 左下
+        size, size, 0.0f,         1.0f, 0.0f, // 右上
+        -size, size, 0.0f,        0.0f, 0.0f, // 左上
+        size, -size, 0.0f,        1.0f, 1.0f, // 右下
     
     };
     
@@ -117,7 +125,7 @@
     glVertexAttribPointer(textCoordinate, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*5, (GLfloat*)NULL+3);
     
     //载入纹理
-    [self setupTexture:@"timg-3"];
+    [self setupTexture:@"test.jpg"];
     
     //注意，想要获取shader里面的变量，这里记得要在glLinkProgram后面，后面，后面！
     /*
@@ -127,7 +135,7 @@
     GLuint rotate = glGetUniformLocation(self.program, "rotateMatrix");
     
     //获取渲染的弧度
-    float radians = 180 * 3.14159f / 180.0f;
+    float radians = 10 * 3.14159f / 180.0f;
     //求得弧度对于的sin\cos值
     float s = sin(radians);
     float c = cos(radians);
